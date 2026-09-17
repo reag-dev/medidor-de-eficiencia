@@ -1,7 +1,7 @@
 <div class="page-title">
   <% if (typeof backHref !== 'undefined' && backHref) { %>
     <a class="back-btn sketch-edge js-back" href="<%= backHref %>" aria-label="<%= t('partials.pageHeader.backAriaLabel') %>">
-      <%- include('./icon', { name: 'chevron-right', size: 18, rough: true }) %>
+      <%- include('./icon', { name: 'chevron-right', size: 18 }) %>
     </a>
   <% } %>
   <h1><%= title %></h1>
