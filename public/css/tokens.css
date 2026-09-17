@@ -1,6 +1,11 @@
-/* Tokens de identidade visual — Sketch your time ("Caderno de Esboço")
-   Fonte: docs/design/kit-ui (design system oficial do produto). */
-@import url('https://fonts.googleapis.com/css2?family=Handlee&family=Architects+Daughter&family=Kalam:wght@400;700&display=swap');
+/* Tokens de identidade visual — Sketch your time.
+   Design minimalista ("Grade"): tipografia condensada/técnica (uma família só, hierarquia por
+   peso), geometria quase reta, borda fina sólida. Direção escolhida via comparação em Artifact
+   (ver .claude/plans/minimal-design-mode-2026-08-03.md e
+   .claude/plans/remove-sketch-design-2026-09-17.md — era uma alternativa opcional, agora é o
+   único design do app). Paleta de cores oklch mantida do design anterior ("Caderno de Esboço"),
+   só tipografia/geometria/efeitos mudaram. */
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Text:wght@400;500;600;700;800&display=swap');
 
 :root {
   /* Informa ao navegador qual esquema de cores a página usa em cada tema — sem isso, controles
@@ -51,18 +56,12 @@
      continua precisando de texto claro sobre a cor de acento (ver ajuste de --accent-* no tema escuro). */
   --on-accent: oklch(98% 0.01 95);
 
-  /* Tipografia */
-  /* --font-body trocada de Patrick Hand pra Handlee (Fase 2 de
-     .claude/plans/pequenos-ajustes-visuais-2026-07-28.md — comparada lado a lado com Neucha e
-     Shantell Sans num Artifact, Handlee foi a escolhida por ser um manuscrito mais legível em
-     texto corrido). Handlee só tem o peso 400 no Google Fonts (sem variante bold de verdade) e o
-     traço saiu fino demais nessa aplicação — --font-body-stroke reforça com um contorno
-     (-webkit-text-stroke, não font-weight sintético, que distorce letra manuscrita) só onde
-     --font-body é usado; --font-display/--font-accent não usam esse token. */
-  --font-body: 'Handlee', cursive;
-  --font-body-stroke: 0.35px;
-  --font-display: 'Architects Daughter', cursive;
-  --font-accent: 'Kalam', cursive;
+  /* Tipografia — família única (Big Shoulders Text), hierarquia por peso, sem contorno reforçado
+     (esse token só fazia sentido pro traço fino da fonte manuscrita anterior). */
+  --font-body: 'Big Shoulders Text', sans-serif;
+  --font-body-stroke: 0;
+  --font-display: 'Big Shoulders Text', sans-serif;
+  --font-accent: 'Big Shoulders Text', sans-serif;
   /* --text-base 18px -> 19px (Fase 3 de .claude/plans/pequenos-ajustes-visuais-2026-07-28.md —
      "sutil", escolhida entre 3 direções comparadas visualmente). --text-sm fica no piso de 15px
      (CLAUDE.md: corpo nunca abaixo disso) — não fazia parte da direção escolhida. */
@@ -89,10 +88,10 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
-  --border-w: 2.5px;
-  --radius-blob: 14px 10px 16px 9px / 10px 16px 9px 14px;
-  --radius-pill: 999px 990px 999px 990px / 999px;
-  --radius-sm: 8px 6px 9px 6px / 6px 9px 6px 8px;
+  --border-w: 1.5px;
+  --radius-blob: 4px;
+  --radius-pill: 4px;
+  --radius-sm: 3px;
 }
 
 [data-theme="dark"] {
@@ -130,46 +129,24 @@
   --postit-orange: oklch(36% 0.11 55);
 }
 
-/* Efeito "traço à mão" — usado por todo componente sketch-edge/sketch-hover.
-   Roda em loop (forward, sem alternate) enquanto o hover/focus durar — por isso
-   :hover precisa do "infinite": sem ele a animação termina em 0.5s e o elemento
-   volta a ficar reto mesmo com o mouse ainda em cima.
-   A rotação anima só o ::before (a "moldura" à mão) — nunca o elemento real, para o
-   texto/ícone real não rotacionar junto e borrar durante a animação. */
-@keyframes sketch-wobble {
-  0%, 100% { transform: rotate(var(--tilt, -0.65deg)); }
-  25% { transform: rotate(calc(var(--tilt, -0.65deg) * -1)); }
-  50% { transform: rotate(var(--tilt, -0.65deg)); }
-  75% { transform: rotate(calc(var(--tilt, -0.65deg) * -1)); }
-}
-@keyframes sketch-in {
-  from { opacity: 0; transform: scale(0.94) rotate(-1deg); }
-  to { opacity: 1; transform: scale(1) rotate(0deg); }
-}
-/* Entrada de cards/itens de lista — reaproveita @keyframes sketch-in (existia mas não era usado
-   em lugar nenhum). --stagger-index (setado inline por item na view) escalona a entrada; min()
-   limita o atraso máximo pra listas longas não demorarem uma eternidade pra terminar de entrar. */
-.sketch-in {
-  animation: sketch-in 0.35s ease-out backwards;
-  animation-delay: calc(min(var(--stagger-index, 0), 10) * 30ms);
-}
+/* .sketch-edge/.sketch-hover/.sketch-in: nomes legados do design "Caderno de Esboço" anterior
+   (bordas tremidas à mão, tremor no hover, entrada animada) — mantidos como nomes de classe (20
+   views os referenciam) mas sem o efeito "vivo": borda fina reta, sem animação. Renomear as
+   classes em si é um refactor cosmético separado, fora de escopo (ver
+   .claude/plans/remove-sketch-design-2026-09-17.md). */
+.sketch-in { animation: none; }
 .sketch-edge { position: relative; isolation: isolate; }
 .sketch-edge::before {
   content: "";
   position: absolute;
-  inset: -3px;
-  border: var(--border-w) solid var(--ink);
+  inset: 0;
+  border: var(--border-w) solid color-mix(in oklch, var(--ink) 35%, transparent);
   border-radius: var(--radius, var(--radius-blob));
   background: var(--surface);
   z-index: -1;
-  /* Referencia o <filter> real definido em partials/svg-filters.ejs (incluído uma vez por layout),
-     não mais um data URI inline — Safari/WebKit não resolve filtros SVG referenciados via data:
-     no CSS (o elemento simplesmente some, em vez de só ignorar o filtro), então precisa ser um
-     <filter> de verdade no HTML da página, referenciado por #id. */
-  filter: url(#sketch-rough-edge);
 }
 .sketch-hover:hover:not(:disabled)::before, .sketch-hover:focus-visible:not(:disabled)::before {
-  animation: sketch-wobble 0.5s ease-in-out infinite;
+  animation: none;
 }
 
 /* Respeita a preferência de menos movimento do usuário — desliga/encolhe qualquer animação e

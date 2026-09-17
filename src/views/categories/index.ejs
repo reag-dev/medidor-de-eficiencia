@@ -15,7 +15,7 @@
 <% } else { %>
   <div class="grid-menu">
     <% categorias.forEach((c, i) => { %>
-      <div class="card sketch-edge sketch-in" style="--tilt: <%= i % 2 ? '0.6deg' : '-0.6deg' %>; --stagger-index: <%= i %>; transform: rotate(var(--tilt));">
+      <div class="card sketch-edge sketch-in" style="--stagger-index: <%= i %>;">
         <div class="card-heading">
           <span class="color-dot" style="background: <%= c.cor %>" aria-hidden="true"></span>
           <h3 class="card-title"><%= c.nome %></h3>

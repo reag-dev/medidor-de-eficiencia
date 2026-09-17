@@ -1,12 +1,10 @@
-/* Componentes de UI — Sketch your time ("Caderno de Esboço")
-   Fonte: docs/design/kit-ui/components.css (classes portadas 1:1 do design system). */
+/* Componentes de UI — Sketch your time.
+   Fonte original: docs/design/kit-ui/components.css (classes portadas 1:1 do design system
+   "Caderno de Esboço"); geometria/tipografia atualizadas pro design minimalista único (ver
+   .claude/plans/remove-sketch-design-2026-09-17.md). */
 
 body {
   background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--paper-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px);
-  background-size: 26px 26px;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -15,10 +13,10 @@ body {
   transition: background-color .25s ease, color .25s ease;
 }
 /* line-height próprio (mais apertado que o 1.5 herdado do body, em reset.css) — títulos usam a
-   fonte de display em tamanho maior; 1.5 fica solto demais quando o título quebra em duas linhas. */
-/* -webkit-text-stroke-width é herdado do body (reforço da Handlee, ver tokens.css) — zerado aqui
-   porque Architects Daughter já é mais encorpada e não precisa do reforço. */
-h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; margin: 0; line-height: 1.25; -webkit-text-stroke-width: 0; }
+   fonte de display em tamanho maior; 1.5 fica solto demais quando o título quebra em duas linhas.
+   font-weight: 700 (Big Shoulders Text tem peso real, ao contrário da fonte manuscrita anterior)
+   dá presença de título sem precisar de uma família separada. */
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; margin: 0; line-height: 1.25; -webkit-text-stroke-width: 0; }
 a { color: var(--accent-blue); }
 a:hover { color: var(--ink); }
 .muted { color: var(--ink-soft); font-size: var(--text-sm); }
@@ -163,13 +161,11 @@ textarea.input { padding: 10px 4px; resize: vertical; }
 .card-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
 .card-footer { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
 
-/* Badge — sombra sólida no ::before (onde vive o arredondamento) dá a impressão de um
-   adesivo com a base descolada do papel; não pode ir no elemento real (sem raio, sombra quadrada). */
+/* Badge */
 .badge {
   display: inline-flex; align-items: center; gap: 6px; padding: 3px 12px;
   font-size: var(--text-sm); --radius: var(--radius-pill); position: relative; isolation: isolate;
 }
-.badge::before { box-shadow: 2px 3px 0 0 var(--ink); }
 /* Margem inferior maior que a superior de propósito: quando um badge é longo o bastante pra
    quebrar em 2 linhas (ex.: valor padrão de categoria), 10px nos dois lados deixava a última linha
    colada no texto seguinte ("N atividade(s)"). */
@@ -190,12 +186,6 @@ textarea.input { padding: 10px 4px; resize: vertical; }
 .theme-toggle .icon-moon { display: none; }
 [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: inline-flex; }
-
-/* Alternância de modo de design (botão lápis/quadrado no topbar) — mesmo padrão do sol/lua acima.
-   Ícone mostra o modo ATUAL (lápis = sketch ativo, quadrado = minimal ativo, o default). */
-.design-toggle .icon-sketch { display: none; }
-[data-design="sketch"] .design-toggle .icon-sketch { display: inline-flex; }
-[data-design="sketch"] .design-toggle .icon-minimal { display: none; }
 
 /* Paginação */
 .pagination { display: flex; align-items: center; gap: 6px; }

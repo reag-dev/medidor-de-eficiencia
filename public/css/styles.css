@@ -1,6 +1,7 @@
 /* Sketch your time — folha de estilos da aplicação (RNF03: responsivo, mobile-first)
-   Identidade visual "Caderno de Esboço": ver docs/design/kit-ui/ e seção
-   "Identidade visual" do CLAUDE.md. */
+   Identidade visual minimalista única: ver seção "Identidade visual" do CLAUDE.md.
+   docs/design/kit-ui/ é a cópia do kit de referência do design "Caderno de Esboço" original,
+   mantida só como histórico/consulta (nunca importada em runtime). */
 @import url('./reset.css');
 @import url('./tokens.css');
 @import url('./components.css');
@@ -90,52 +91,9 @@
    aqui, pra dar peso de "primeira impressão" à tela mais visitada do fluxo de auth. */
 .login-hero-title {
   display: inline-block;
-  position: relative;
   font-size: var(--text-3xl);
   line-height: 1.15;
 }
-/* Sublinhado "marca-texto" desenhado à mão: o <path> usa pathLength="1" no markup (login.ejs) pra
-   normalizar o comprimento do traço, permitindo stroke-dasharray/dashoffset em unidades simples (1)
-   em vez de calcular o comprimento real do path a cada ajuste de curva. */
-.title-underline {
-  position: absolute;
-  left: 3%;
-  bottom: -8px;
-  width: 94%;
-  height: 16px;
-  overflow: visible;
-}
-.title-underline path {
-  fill: none;
-  stroke: var(--accent-yellow);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-underline 0.5s ease-out 0.5s forwards;
-}
-@keyframes draw-underline {
-  to { stroke-dashoffset: 0; }
-}
-
-/* Fita adesiva decorativa "prendendo" o card ao papel — puramente ilustrativa (aria-hidden no
-   markup). Usa --accent-yellow-soft (já existe pros dois temas) em vez de opacity/color-mix, pra
-   não depender de suporte de navegador a color-mix() nem reinventar um tom transparente novo.
-   Filtro reaproveita #sketch-rough-icon (distorção mais sutil que #sketch-rough-edge, adequada
-   pro tamanho pequeno da fita). Sem z-index: como filho de .sketch-edge (isolation: isolate), já
-   renderiza acima do ::before (z-index: -1) da borda à mão do card, sem precisar disso explícito. */
-.washi-tape {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  width: 92px;
-  height: 30px;
-  transform: translateX(-50%) rotate(-3deg);
-  background: var(--accent-yellow-soft);
-  border: 1px dashed var(--ink-soft);
-  filter: url(#sketch-rough-icon);
-}
-
 /* Ícone do botão "Entrar com Google": 4 pontos nas cores das "canetas" de acento do próprio
    sistema (--accent-blue/green/yellow/red), no lugar de um ícone genérico de usuário — assinatura
    visual específica do produto, mesma linguagem de .color-dot usada em categorias. */
@@ -219,10 +177,9 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
 }
 
 /* Estado "ao vivo" (atividade em andamento): ponto pulsante + cronômetro que conta em tempo real
-   (public/js/in-progress-timer.js). O número reaproveita o mesmo tratamento de destaque dos
-   números-chave do relatório (.report-big-wrap/.stat-underline, tokens.css/styles.css) — o
-   sublinhado amarelo funciona como "o marca-texto do app" pra qualquer número que importa, não só
-   nos relatórios. tabular-nums evita que os dígitos larguem de largura a cada tick do cronômetro. */
+   (public/js/in-progress-timer.js). O número reaproveita o mesmo wrapper de destaque dos
+   números-chave do relatório (.report-big-wrap). tabular-nums evita que os dígitos larguem de
+   largura a cada tick do cronômetro. */
 .in-progress-status { display: flex; align-items: center; gap: 8px; font-size: var(--text-sm); color: var(--ink-soft); }
 .in-progress-name { font-size: var(--text-lg); }
 .in-progress-timer { font-variant-numeric: tabular-nums; }
@@ -282,22 +239,7 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
    quebrada ficava colada no número acima, sem respiro. */
 .report-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.75rem 1rem; gap: 6px; }
 .report-big { font-family: var(--font-display); font-size: var(--text-2xl); -webkit-text-stroke-width: 0; }
-/* Destaque dos números-chave do relatório — mesma técnica do sublinhado "marca-texto" da tela de
-   login (path com pathLength="1" pra usar stroke-dasharray/dashoffset em unidades simples): o
-   wrapper inline-block encolhe pro tamanho do número, então o sublinhado (94% da largura do
-   wrapper) acompanha "2/31" ou "7h" sem precisar calcular a largura real do texto. Cor de seção
-   de Relatórios (amarelo) — igual à do card correspondente na home. */
 .report-big-wrap { display: inline-block; position: relative; }
-.stat-underline { position: absolute; left: 3%; bottom: -6px; width: 94%; height: 14px; overflow: visible; }
-.stat-underline path {
-  fill: none;
-  stroke: var(--accent-yellow);
-  stroke-width: 5;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-underline 0.5s ease-out 0.4s forwards;
-}
 .bars { list-style: none; display: flex; flex-direction: column; gap: 1rem; padding: 0; margin-top: 1rem; }
 .bar-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: var(--text-sm); align-items: center; gap: 8px; }
 .bar-label .color-dot { width: 12px; height: 12px; }
@@ -327,12 +269,6 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
   stroke-width: 3;
   stroke-linecap: round;
   stroke-linejoin: round;
-  /* Mesma técnica de "desenhar" o traço do .stat-underline: pathLength="1" no markup habilita
-     stroke-dasharray/dashoffset em unidades simples (0 a 1) em vez de calcular o comprimento
-     real do polyline. */
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-underline 0.6s ease-out 0.2s forwards;
 }
 .line-chart circle { stroke: var(--paper); stroke-width: 2; }
 /* Marcação de data (dd/MM) abaixo de cada ponto — SVG não herda fonte/cor da página, precisa
@@ -379,12 +315,10 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
   transition: opacity .15s ease, transform .15s ease;
   z-index: 5;
 }
-/* Sombra sólida "adesivo" no ::before (onde vive o arredondamento) — mesma técnica do .badge. */
-.chart-tooltip::before { box-shadow: 2px 3px 0 0 var(--ink); }
 /* Hierarquia dentro do tooltip: nome identifica o registro (regra 9 — "a que ponto aquele
    registro se refere"), valor é o dado que o gráfico existe pra mostrar (destaque, por isso usa
-   --font-accent/Kalam — token já definido em tokens.css pra "destaques" mas sem nenhum uso real
-   ainda), data/hora é o contexto de quando. Cor do valor fica em --ink (não na cor da categoria):
+   --font-accent — token de tokens.css pra "destaques"), data/hora é o contexto de quando. Cor do
+   valor fica em --ink (não na cor da categoria):
    a cor da categoria é livre/escolhida pelo usuário (ver CLAUDE.md, regra 6) e não tem garantia
    de contraste como texto sobre --surface — por isso ela só aparece no dot/linha/círculo, nunca
    em texto, mesma cautela já aplicada em .color-dot. */
@@ -482,10 +416,9 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
   position: relative;
   z-index: 1;
 }
-/* Isola a 2ª linha (titleLine2) no próprio inline-block — é onde vive o sublinhado à mão
-   (.title-underline), que precisa de um bloco do tamanho exato dessa linha pra não boiar solto
-   quando o título quebra em 2 linhas (ver comentário em marketing/landing.ejs). */
-.marketing-hero-title-accent { display: inline-block; position: relative; }
+/* Isola a 2ª linha (titleLine2) no próprio inline-block — dá controle sobre o destaque dessa
+   linha independente de onde o título quebra (ver comentário em marketing/landing.ejs). */
+.marketing-hero-title-accent { display: inline-block; }
 .marketing-hero-subtitle {
   margin: 32px auto 0;
   max-width: 540px;
@@ -521,20 +454,16 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
    marketing/landing.ejs); depois de revelado, a classe sai e sketch-in entra no lugar. */
 .scroll-reveal { opacity: 0; }
 .marketing-section { padding: 56px 0; }
-/* font-weight: 700 aqui não troca de fonte (Architects Daughter só tem um peso, 400/regular no
-   Google Fonts) — o navegador sintetiza um negrito (contorno mais grosso) automaticamente pra
-   qualquer font-family sem a variante bold real, o que já basta pra dar mais presença ao título
-   sem precisar carregar um peso de fonte novo. */
 .marketing-section-heading { text-align: center; font-size: var(--text-2xl); font-weight: 700; margin-bottom: 8px; }
 /* Full-bleed: quebra o max-width:960px de .marketing-content pra criar uma "zona" com fundo
    próprio (--surface), diferente do papel do resto da página — ritmo visual entre seções em vez
    de um bloco único e monótono. width:100vw + left:50%/margin-left:-50vw é o truque clássico de
    full-bleed dentro de um container centralizado; .marketing-whatis-inner recentraliza o
    conteúdo na coluna de 960px de novo. */
-/* Fundo bem transparente (pedido explícito) — o quadriculado do papel (body, components.css)
-   continua visível por baixo da faixa em vez de um --surface opaco; os cards dentro
-   (.marketing-feature) continuam opacos (--surface via .sketch-edge::before), então o texto não
-   perde legibilidade, só o FUNDO da faixa fica quase todo ver-através. */
+/* Fundo bem transparente (pedido explícito) — deixa o --paper da página aparecer por baixo da
+   faixa em vez de um --surface opaco; os cards dentro (.marketing-feature) continuam opacos
+   (--surface via .sketch-edge::before), então o texto não perde legibilidade, só o FUNDO da faixa
+   fica quase todo ver-através. */
 .marketing-whatis { background: color-mix(in oklch, var(--surface) 25%, transparent); width: 100vw; position: relative; left: 50%; margin-left: -50vw; padding: 56px 20px; }
 .marketing-whatis-inner { max-width: 960px; margin: 0 auto; }
 /* auto-fit (não o auto-fill de .grid-menu, base desta classe) colapsa a faixa de coluna
@@ -543,15 +472,9 @@ a.card svg { color: var(--accent-blue); margin-bottom: 6px; }
    de ocupar a linha inteira com o mesmo espaço entre eles ("space between" pedido). minmax maior
    (260px, era 220px) deixa cada card visivelmente maior no desktop. */
 .marketing-features { margin-top: 2rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.marketing-feature { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 34px 28px; transition: transform 0.2s ease; }
+.marketing-feature { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 34px 28px; }
 .marketing-feature svg { margin-bottom: 10px; }
 .marketing-feature .card-title { font-size: var(--text-lg); }
-/* Leve inclinação alternada que endireita no hover (redesign a partir de mockup de referência) —
-   diferente do .sketch-hover padrão (tremor em loop no ::before): aqui é o cartão inteiro que
-   "se ajeita" ao passar o mouse, uma única vez, sem loop. */
-.marketing-feature:nth-child(odd) { transform: rotate(-0.8deg); }
-.marketing-feature:nth-child(even) { transform: rotate(0.8deg); }
-.marketing-feature:hover { transform: rotate(0deg); }
 
 /* Benefícios — padrão "left-right": cada linha alterna o lado do visual (ícone grande num card
    sketch-edge) e do texto via row-reverse nas linhas pares. 4ª composição distinta da página

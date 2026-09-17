@@ -17,21 +17,15 @@
 </form>
 
 <div class="report-cards">
-  <div class="card sketch-edge report-card sketch-in" style="--tilt: -0.6deg; --stagger-index: 0; transform: rotate(var(--tilt));">
+  <div class="card sketch-edge report-card sketch-in" style="--stagger-index: 0;">
     <span class="report-big-wrap">
       <span class="report-big"><%= relatorio.diasRegistrados %>/<%= relatorio.diasNoPeriodo %></span>
-      <svg class="stat-underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <path d="M4 12 Q 50 3, 100 11 T 196 9" pathLength="1" />
-      </svg>
     </span>
     <span class="muted"><%= t('reports.stats.daysLabel') %></span>
   </div>
-  <div class="card sketch-edge report-card sketch-in" style="--tilt: 0.6deg; --stagger-index: 1; transform: rotate(var(--tilt));">
+  <div class="card sketch-edge report-card sketch-in" style="--stagger-index: 1;">
     <span class="report-big-wrap">
       <span class="report-big"><%= relatorio.totalFormatado %></span>
-      <svg class="stat-underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <path d="M4 12 Q 50 3, 100 11 T 196 9" pathLength="1" />
-      </svg>
     </span>
     <span class="muted"><%= t('reports.stats.totalHoursLabel') %></span>
   </div>
