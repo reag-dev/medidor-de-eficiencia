@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= locale %>"<% if (theme === 'dark') { %> data-theme="dark"<% } %><% if (currentUser && design === 'sketch') { %> data-design="sketch"<% } %>>
+<html lang="<%= locale %>"<% if (theme === 'dark') { %> data-theme="dark"<% } %>>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,12 +7,8 @@
   <%- include('../partials/meta-tags', { noindex: true }) %>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/css/styles.css" />
-  <% if (currentUser) { %>
-    <link rel="stylesheet" href="/css/minimal.css" />
-  <% } %>
 </head>
 <body>
-  <%- include('../partials/svg-filters') %>
   <% if (currentUser) { %>
     <a class="skip-link" href="#main-content"><%= t('layout.skipLink') %></a>
     <header class="topbar">
@@ -32,10 +28,6 @@
         <button type="button" id="themeToggle" class="icon-btn sketch-edge sketch-hover btn-secondary theme-toggle" aria-label="<%= t('layout.themeToggleAriaLabel') %>" aria-pressed="<%= theme === 'dark' ? 'true' : 'false' %>">
           <span class="icon-sun"><%- include('../partials/icon', { name: 'sun', size: 18, color: 'var(--accent-yellow)' }) %></span>
           <span class="icon-moon"><%- include('../partials/icon', { name: 'moon', size: 18, color: 'var(--ink-soft)' }) %></span>
-        </button>
-        <button type="button" id="designToggle" class="icon-btn sketch-edge sketch-hover btn-secondary design-toggle" aria-label="<%= t('layout.designToggleAriaLabel') %>" aria-pressed="<%= design === 'sketch' ? 'true' : 'false' %>">
-          <span class="icon-sketch"><%- include('../partials/icon', { name: 'pencil', size: 18 }) %></span>
-          <span class="icon-minimal"><%- include('../partials/icon', { name: 'square', size: 18 }) %></span>
         </button>
         <form action="/logout" method="POST">
           <button type="submit" class="icon-btn sketch-edge sketch-hover btn-danger" aria-label="<%= t('layout.logoutAriaLabel') %>">
@@ -60,7 +52,6 @@
   <script src="/js/activity-detail-modal.js"></script>
   <script src="/js/nav-toggle.js"></script>
   <script src="/js/theme-toggle.js"></script>
-  <script src="/js/design-toggle.js"></script>
   <script src="/js/locale-toggle.js"></script>
   <script src="/js/timezone.js"></script>
   <script src="/js/back-button.js"></script>

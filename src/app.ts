@@ -30,20 +30,6 @@ function readThemeCookie(req: Request): 'dark' | 'light' {
 }
 
 /**
- * Lê o cookie "design" (setado via JS por public/js/design-toggle.js, mesmo padrão do cookie
- * "theme") — alterna entre o design system "Caderno de Esboço" (sketch) e uma variante
- * minimalista. Ausência de cookie = 'minimal': é o novo default (ver .claude/plans/
- * minimal-design-mode-2026-08-03.md) — cobre todo usuário existente automaticamente, sem
- * precisar de migração, já que o cookie nunca existiu antes desta feature.
- */
-function readDesignCookie(req: Request): 'sketch' | 'minimal' {
-  const header = req.headers.cookie;
-  if (!header) return 'minimal';
-  const match = header.split(';').map((part) => part.trim()).find((part) => part.startsWith('design='));
-  return match?.slice('design='.length) === 'sketch' ? 'sketch' : 'minimal';
-}
-
-/**
  * Lê o cookie "setupTutorialSeen" (setado via JS por public/js/setup-tutorial-modal.js, mesmo
  * padrão dos demais cookies deste arquivo) — controla se o modal de tutorial dos modelos prontos
  * de categoria (ver .claude/plans/category-setup-templates-2026-08-04.md, Fase 4) já foi
@@ -130,7 +116,6 @@ export function createApp() {
       : null;
     res.locals.currentPath = req.path; // usado pela sidebar para destacar o item ativo
     res.locals.theme = readThemeCookie(req);
-    res.locals.design = readDesignCookie(req);
     res.locals.setupTutorialSeen = hasSetupTutorialSeenCookie(req);
     req.userTimezone = readTimezoneCookie(req);
     req.userLocale = readLocaleCookie(req);

@@ -75,7 +75,6 @@
   "layout.navToggleAriaLabel": "Open menu",
   "layout.docsAriaLabel": "API documentation",
   "layout.themeToggleAriaLabel": "Toggle light/dark theme",
-  "layout.designToggleAriaLabel": "Toggle sketch/minimal design",
   "layout.localeToggleAriaLabel": "Switch language to Portuguese",
   "layout.logoutAriaLabel": "Log out",
 

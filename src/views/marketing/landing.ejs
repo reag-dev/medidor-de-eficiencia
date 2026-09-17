@@ -1,12 +1,8 @@
 <section class="marketing-hero">
   <%
     /* Título quebrado em 2 linhas de propósito (chaves titleLine1/titleLine2), não deixado pro
-       wrap natural do navegador: o sublinhado à mão é um <svg> posicionado em % relativo ao bloco
-       inline-block do título (mesma técnica de .login-hero-title) — com o texto inteiro num só
-       inline-block, um wrap imprevisível (depende do viewport/tradução) faz o sublinhado, que
-       assume ocupar a largura da ÚLTIMA linha, ficar solto no meio do bloco de 2 linhas em vez de
-       embaixo do texto. Forçando a quebra e isolando só a 2ª linha no próprio inline-block
-       (.marketing-hero-title-accent), o sublinhado sempre acompanha exatamente essa linha. */
+       wrap natural do navegador — dá controle sobre onde o destaque (.marketing-hero-title-accent)
+       cai, independente do viewport/tradução. */
   %>
   <%
     /* Marca d'água decorativa (relógio gigante, bem apagado) — só atmosfera/profundidade, sem
@@ -20,9 +16,6 @@
     <%= t('marketing.hero.titleLine1') %><br />
     <span class="marketing-hero-title-accent">
       <%= t('marketing.hero.titleLine2') %>
-      <svg class="title-underline" viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <path d="M4 12 Q 50 3, 100 11 T 196 9" pathLength="1" />
-      </svg>
     </span>
   </h1>
   <p class="marketing-hero-subtitle sketch-in" style="--stagger-index: 1;"><%= t('marketing.hero.subtitle') %></p>
@@ -204,7 +197,7 @@
   <div class="marketing-benefits-list">
     <% benefits.forEach((benefit, i) => { %>
       <div class="marketing-benefit-row scroll-reveal" data-scroll-reveal style="--stagger-index: <%= i + 1 %>;">
-        <div class="marketing-benefit-visual card sketch-edge <%= benefit.color %>" style="transform: rotate(<%= i % 2 ? '0.8deg' : '-0.8deg' %>);">
+        <div class="marketing-benefit-visual card sketch-edge <%= benefit.color %>">
           <%- include('../partials/icon', { name: benefit.icon, size: 80 }) %>
         </div>
         <div class="marketing-benefit-text">

@@ -27,15 +27,12 @@ const ICON_PATHS = {
   'filter': 'M3 5h18l-7 8v6l-4 2v-8z',
   'home': 'M3 11l9-8 9 8M5 10v10h14V10',
   'logout': 'M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9',
-  // Adicionados além do catálogo original do kit-ui, mesma linguagem visual (linha + filtro tremido):
+  // Adicionados além do catálogo original do kit-ui, mesma linguagem visual (linha simples):
   'sun': 'M12 17a5 5 0 100-10 5 5 0 000 10zM12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42',
   'moon': 'M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z',
   'menu': 'M4 6h16M4 12h16M4 18h16',
-  'pencil': 'M4 20h4L18 6l-4-4L4 16v4zM13 3l4 4',
-  'square': 'M5 5h14v14H5z',
 };
 const iconSize = typeof size !== 'undefined' ? size : 20;
 const iconColor = typeof color !== 'undefined' ? color : 'currentColor';
-const iconRough = typeof rough !== 'undefined' ? rough : true;
 const d = ICON_PATHS[name];
-%><% if (d) { %><svg width="<%= iconSize %>" height="<%= iconSize %>" viewBox="0 0 24 24" fill="none" stroke="<%= iconColor %>" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"<% if (iconRough) { %> style="filter: url(#sketch-rough-icon)"<% } %>><path d="<%= d %>" /></svg><% } %>
+%><% if (d) { %><svg width="<%= iconSize %>" height="<%= iconSize %>" viewBox="0 0 24 24" fill="none" stroke="<%= iconColor %>" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="<%= d %>" /></svg><% } %>

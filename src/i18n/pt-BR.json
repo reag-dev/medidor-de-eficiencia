@@ -75,7 +75,6 @@
   "layout.navToggleAriaLabel": "Abrir menu",
   "layout.docsAriaLabel": "Documentação da API",
   "layout.themeToggleAriaLabel": "Alternar tema claro/escuro",
-  "layout.designToggleAriaLabel": "Alternar visual entre esboço e minimalista",
   "layout.localeToggleAriaLabel": "Mudar idioma para inglês",
   "layout.logoutAriaLabel": "Sair",
 
